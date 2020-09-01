@@ -20,13 +20,15 @@ public class TrelloSeleniumWebTests {
 
     }
     @Test
-    public void searchTest(){
+    public void searchTest() throws InterruptedException {
         System.out.println("Trello opened");
         wd.findElement(By.cssSelector("[href='/login']")).click();
         wd.findElement(By.id("user")).click();
         wd.findElement(By.id("user")).clear();
         wd.findElement(By.id("user")).sendKeys("arturanisimov20031996@gmail.com");
-        
+        Thread.sleep(2000);
+        wd.findElement(By.className("atlassian-brand")).click();
+        wd.findElement(By.id("name")).sendKeys("Artur Anisimov");
         wd.findElement(By.id("password")).click();
         wd.findElement(By.id("password")).clear();
         wd.findElement(By.id("password")).sendKeys("pisikaka17153" + Keys.ENTER);
