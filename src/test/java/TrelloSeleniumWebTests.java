@@ -22,19 +22,28 @@ public class TrelloSeleniumWebTests {
     @Test
     public void searchTest() throws InterruptedException {
         System.out.println("Trello opened");
-        wd.findElement(By.cssSelector("[href='/login']")).click();
-        wd.findElement(By.id("user")).click();
+        click(By.cssSelector("[href='/login']"));
+        click(By.id("user"));
         wd.findElement(By.id("user")).clear();
         wd.findElement(By.id("user")).sendKeys("arturanisimov20031996@gmail.com");
         Thread.sleep(2000);
-        wd.findElement(By.className("atlassian-brand")).click();
+        click(By.className("atlassian-brand"));
         wd.findElement(By.id("name")).sendKeys("Artur Anisimov");
-        wd.findElement(By.id("password")).click();
+        click(By.id("password"));
         wd.findElement(By.id("password")).clear();
         wd.findElement(By.id("password")).sendKeys("pisikaka17153" + Keys.ENTER);
+       click(By.id("login-button"));
 
+
+        isAvatarPresent();
 
     }
+    public void click(By locator){
+        wd.findElement(locator).click();
+    }
+    public boolean isAvatarPresent() {
+       return wd.findElements(By.xpath("//button[@data-test-id='header-member-menu-button']")).size() > 0;
+             }
 
     @AfterClass(enabled = false)
     public void tearDown(){

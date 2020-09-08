@@ -3,6 +3,7 @@ package com.telRan.tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -23,26 +24,34 @@ public class LoginTrelloTests {
 
     @Test
     public void loginAtlassanAccPositiveTest() throws InterruptedException {
-        //clickOnLogInButtonWelcomePage
-        wd.findElement(By.cssSelector("[href='/login']")).click();
+        login("arturanisimov20031996@gmail.com","pisikaka17153");
+        //er userLoggedIn (isAvatarPresent())
+        Assert.assertTrue(isAvatarPresent());
+        //is user correct
+    }
 
-        //fillLoginForm
-            //fillEmail
-        wd.findElement(By.name("user")).click();
-        wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys("arturanisimov20031996@gmail.com");
-            //wait
-        Thread.sleep(5000);
 
-            //clickOnLoginWithAtlassianButton
-        wd.findElement(By.id("login")).click();
+    public void login(String email, String password) throws InterruptedException {
+        click(By.cssSelector("[href='/login']"));
+        type(By.name("user"), email);
         Thread.sleep(5000);
-            //fillPassword
-        wd.findElement(By.id("password")).click();
-        wd.findElement(By.id("password")).clear();
-        wd.findElement(By.id("password")).sendKeys("pisikaka17153");
-            //confirmLogIn
-        wd.findElement(By.id("login-submit")).click();
+        click(By.id("login"));
+        Thread.sleep(5000);
+        type(By.id("password"), password);
+        click(By.id("login-submit"));
+    }
+
+    public void type(By locator, String text) {
+        click(locator);
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(text);
+    }
+
+    public void click(By locator){
+        wd.findElement(locator).click();
+    }
+    public boolean isAvatarPresent() {
+        return wd.findElements(By.xpath("//button[@data-test-id='header-member-menu-button']")).size() > 0;
     }
 
     @AfterClass(enabled = false)
