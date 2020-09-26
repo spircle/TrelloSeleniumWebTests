@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     WebDriver wd;
+    SessionHelper session;
+    BoardHelper board;
 
     public void init() {
         wd = new ChromeDriver();
@@ -15,6 +17,16 @@ public class ApplicationManager {
         wd.manage().window().maximize();
         //open site
         wd.navigate().to("https://trello.com/");
+        session = new SessionHelper(wd);
+        board = new BoardHelper(wd);
+    }
+
+    public SessionHelper getSession() {
+        return session;
+    }
+
+    public BoardHelper getBoard() {
+        return board;
     }
 
     public void stop() {
