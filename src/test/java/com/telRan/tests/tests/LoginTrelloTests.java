@@ -1,4 +1,4 @@
-package com.telRan.tests;
+package com.telRan.tests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -8,23 +8,16 @@ public class LoginTrelloTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions(){
-        if(app.isAvatarPresent()){
-            app.logout();
+        if(app.header().isAvatarPresent()){
+            app.header().logout();
         }
     }
 
     @Test
     public void loginAtlassanAccPositiveTest() throws InterruptedException {
-        app.login("arturanisimov20031996@gmail.com","pisikaka17153");
+        app.session().login("arturanisimov20031996@gmail.com","pisikaka17153");
         //er userLoggedIn (isAvatarPresent())
-        Assert.assertTrue(app.isAvatarPresent());
+        Assert.assertTrue(app.header().isAvatarPresent());
         //is user correct
     }
-    @Test
-    public void negativeLoginAtlassianAccPositiveTest(){
-
-    }
-
-
-
 }
